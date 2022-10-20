@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ItemService } from 'src/app/services/items.service';
+import { TaskService } from 'src/app/services/task.service';
 
 
 export interface ItemsI {
@@ -9,6 +11,13 @@ export interface ItemsI {
   _id?: String
 }
 
+export interface ListaI {
+  title: string,
+  _id: string
+}
+
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,13 +25,37 @@ export interface ItemsI {
 })
 export class HomeComponent implements OnInit {
 
-  listaItems: ItemsI[] = [];
+  lists: any;
+  tasks: any;
+  listS!: ListaI[];
+  listaItems: any;
 
-  constructor(private itemsvc: ItemService) { }
-
+  constructor(private itemsvc: ItemService, private tasksvc: TaskService, private route: ActivatedRoute) { }
+  
   ngOnInit(): void {
-    this.obtenerItems();
+    // this.obtenerItems();
+    this.getLists();
+    this.route.params.subscribe((params) => {
+    if(params){
+      console.log(params); console.log('""""""""');
+      this.getTasks(params);
+    } else{
+      console.log('no hay id puesto')
+    }
+    
+    
+    });
   }
+
+  getLists() {
+    return this.tasksvc.getList().subscribe(res => {this.lists = res; this.listS = this.lists; console.log(this.listS)} );
+  }
+
+  getTasks(params: any) {
+    return this.tasksvc.getTasks(params.listId).subscribe(tasks => this.tasks = tasks);
+  }
+
+
 
   obtenerItems() {
     this.itemsvc.get().subscribe(x => {
@@ -43,6 +76,9 @@ export class HomeComponent implements OnInit {
     let item: ItemsI = {name: "Maria", descripcion: "hola muuuundo", edad: 30};
     this.itemsvc.post(item).subscribe(x => {this.obtenerItems();});
   }
+
+
+
 
 }
 

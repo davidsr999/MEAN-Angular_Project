@@ -21,7 +21,7 @@
 .side-bar {
     display: flex;
     flex-direction: column;
-    width: 18%;
+    width: 20%;
     padding: 42px;
     border: none;
     border-radius: 8px;
@@ -77,8 +77,11 @@
 .list-menu {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
-    flex-grow: 1;
+    margin-top: 5px;
+    /* flex-grow: 1; */
+    height: 80%;
+    width: 100%;
+    overflow-y:auto;
 }
 
 
@@ -95,6 +98,7 @@
 
 .list-menu-item p {
     padding-left: 5px;
+    text-transform: capitalize;
 }
 
 .list-menu-item:hover {
@@ -118,6 +122,7 @@
     border: none;
     border-radius: 5px;
     padding: .3rem 0;
+    margin-top: 22px;
     color: white;
 }
 

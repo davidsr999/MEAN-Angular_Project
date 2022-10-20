@@ -3,7 +3,10 @@
         <div class="side-bar">
             <h1 class="title">Lists</h1>
             <div class="list-menu">
-                <a class="list-menu-item is-active">
+                <a class="list-menu-item is-active" *ngFor="let list of lists" [routerLink]="['/lists', list._id]" style="text-decoration: none">
+                    <p>{{list.title}}</p>
+                </a>
+                <!-- <a class="list-menu-item is-active">
                     <p>List #1</p>
                 </a>
                 <a class="list-menu-item">
@@ -11,25 +14,25 @@
                 </a>
                 <a class="list-menu-item">
                     <p>List #1</p>
-                </a>
+                </a> -->
             </div>
 
-            <button class="button">+New List</button>
+            <button routerLink="/newlist" class="button">+New List</button>
 
         </div>
     
         <div class="task-list">
             <h1 class="title">Tasks <button (click)="nuevoItem()">nuevo item</button></h1>
 
-            <div class="task" *ngFor="let item of listaItems">
+            <!-- <div class="task" *ngFor="let item of listaItems">
                 <p>{{item.name}} {{item.descripcion}} {{item.edad}} <button (click)="eliminar(item._id)">eliminar</button></p>
+            </div> -->
+
+            <div class="task" *ngFor="let task of tasks">
+                <p>{{task.title}}</p>
             </div>
 
             <!-- <div class="task">
-                <p>This is some example of task</p>
-            </div>
-
-            <div class="task">
                 <p>This is some example of task</p>
             </div>
 
